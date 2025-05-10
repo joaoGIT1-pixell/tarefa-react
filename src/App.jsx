@@ -16,11 +16,16 @@ function App() {
     setTarefas(tarefasEditadas);
   }
 
+  function removerTarefa(id) {
+    const tarefasFiltradas = tarefas.filter((t) => t.id !== id);
+    setTarefas(tarefasFiltradas);
+  }
+
   return (
     <div>
       <h1>Lista de Tarefas</h1>
       <AddTaskForm onAdd={adicionarTarefa} />
-      <TaskList tarefas={tarefas} onEdit={editarTarefa} />
+      <TaskList tarefas={tarefas} onEdit={editarTarefa} onRemove={removerTarefa} />
     </div>
   );
 }

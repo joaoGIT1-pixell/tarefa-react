@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function TaskList({ tarefas, onEdit }) {
+function TaskList({ tarefas, onEdit, onRemove }) {
   const [editandoId, setEditandoId] = useState(null);
   const [novoTitulo, setNovoTitulo] = useState("");
   const [novaDescricao, setNovaDescricao] = useState("");
@@ -43,6 +43,7 @@ function TaskList({ tarefas, onEdit }) {
               </small>
               <br />
               <button onClick={() => iniciarEdicao(tarefa)}>Editar</button>
+              <button onClick={() => onRemove(tarefa.id)}>Excluir</button>
             </>
           )}
           <hr />
