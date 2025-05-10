@@ -1,38 +1,55 @@
-const tarefasMock = [
-    {
-      id: 1,
-      titulo: "Estudar React",
-      descricao: "Revisar props e hooks",
-      categoria: "Estudo",
-      prioridade: "Alta",
-      estado: "Por Fazer"
-    },
-    {
-      id: 2,
-      titulo: "Ir ao mercado",
-      descricao: "Comprar leite e pão",
-      categoria: "Pessoal",
-      prioridade: "Normal",
-      estado: "Concluído"
-    }
-  ];
-  
-  function TaskList() {
-    return (
-      <div>
-        {tarefasMock.map((tarefa) => (
-          <div key={tarefa.id}>
-            <h3>{tarefa.titulo}</h3>
-            <p>{tarefa.descricao}</p>
-            <small>
-              Categoria: {tarefa.categoria} | Prioridade: {tarefa.prioridade} | Estado: {tarefa.estado}
-            </small>
-            <hr />
-          </div>
-        ))}
-      </div>
-    );
+import { useState } from 'react';
+
+function TaskList({ tarefas, onEdit }) {
+  const [editandoId, setEditandoId] = useState(null);
+  const [novoTitulo, setNovoTitulo] = useState("");
+  const [novaDescricao, setNovaDescricao] = useState("");
+
+  function iniciarEdicao(tarefa) {
+    setEditandoId(tarefa.id);
+    setNovoTitulo(tarefa.titulo);
+    setNovaDescricao(tarefa.descricao);
   }
-  
-  export default TaskList;
-  
+
+  function salvarEdicao(id) {
+    onEdit(id, novoTitulo, novaDescricao);
+    setEditandoId(null);
+  }
+
+  return (
+    <div>
+      {tarefas.map((tarefa) => (
+        <div key={tarefa.id}>
+          {editandoId === tarefa.id ? (
+            <>
+              <input
+                type="text"
+                value={novoTitulo}
+                onChange={(e) => setNovoTitulo(e.target.value)}
+              />
+              <input
+                type="text"
+                value={novaDescricao}
+                onChange={(e) => setNovaDescricao(e.target.value)}
+              />
+              <button onClick={() => salvarEdicao(tarefa.id)}>Salvar</button>
+            </>
+          ) : (
+            <>
+              <h3>{tarefa.titulo}</h3>
+              <p>{tarefa.descricao}</p>
+              <small>
+                Categoria: {tarefa.categoria} | Prioridade: {tarefa.prioridade} | Estado: {tarefa.estado}
+              </small>
+              <br />
+              <button onClick={() => iniciarEdicao(tarefa)}>Editar</button>
+            </>
+          )}
+          <hr />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default TaskList;
