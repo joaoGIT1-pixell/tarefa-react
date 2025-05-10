@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function TaskList({ tarefas, onEdit, onRemove }) {
+function TaskList({ tarefas, onEdit, onRemove, onToggleFavorita }) {
   const [editandoId, setEditandoId] = useState(null);
   const [novoTitulo, setNovoTitulo] = useState("");
   const [novaDescricao, setNovaDescricao] = useState("");
@@ -36,7 +36,7 @@ function TaskList({ tarefas, onEdit, onRemove }) {
             </>
           ) : (
             <>
-              <h3>{tarefa.titulo}</h3>
+              <h3>{tarefa.favorita ? "⭐ " : ""}{tarefa.titulo}</h3>
               <p>{tarefa.descricao}</p>
               <small>
                 Categoria: {tarefa.categoria} | Prioridade: {tarefa.prioridade} | Estado: {tarefa.estado}
@@ -44,6 +44,9 @@ function TaskList({ tarefas, onEdit, onRemove }) {
               <br />
               <button onClick={() => iniciarEdicao(tarefa)}>Editar</button>
               <button onClick={() => onRemove(tarefa.id)}>Excluir</button>
+              <button onClick={() => onToggleFavorita(tarefa.id)}>
+                {tarefa.favorita ? "Desfavoritar" : "Favoritar"}
+              </button>
             </>
           )}
           <hr />

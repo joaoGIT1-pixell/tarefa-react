@@ -21,11 +21,23 @@ function App() {
     setTarefas(tarefasFiltradas);
   }
 
+  function alternarFavorita(id) {
+    const tarefasAtualizadas = tarefas.map((t) =>
+      t.id === id ? { ...t, favorita: !t.favorita } : t
+    );
+    setTarefas(tarefasAtualizadas);
+  }
+
   return (
     <div>
       <h1>Lista de Tarefas</h1>
       <AddTaskForm onAdd={adicionarTarefa} />
-      <TaskList tarefas={tarefas} onEdit={editarTarefa} onRemove={removerTarefa} />
+      <TaskList
+        tarefas={tarefas}
+        onEdit={editarTarefa}
+        onRemove={removerTarefa}
+        onToggleFavorita={alternarFavorita}
+      />
     </div>
   );
 }

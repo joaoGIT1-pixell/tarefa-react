@@ -14,7 +14,8 @@ function AddTaskForm({ onAdd }) {
       descricao,
       categoria,
       prioridade: "Normal",
-      estado: "Por Fazer"
+      estado: "Por Fazer",
+      favorita: false
     };
 
     onAdd(novaTarefa);
