@@ -4,6 +4,7 @@ function AddTaskForm({ onAdd }) {
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
   const [categoria, setCategoria] = useState("Estudo");
+  const [estado, setEstado] = useState("Por Fazer");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,15 +15,17 @@ function AddTaskForm({ onAdd }) {
       descricao,
       categoria,
       prioridade: "Normal",
-      estado: "Por Fazer",
+      estado,
       favorita: false
     };
 
     onAdd(novaTarefa);
 
+  
     setTitulo("");
     setDescricao("");
     setCategoria("Estudo");
+    setEstado("Por Fazer");
   }
 
   return (
@@ -49,6 +52,16 @@ function AddTaskForm({ onAdd }) {
         <option value="Trabalho">Trabalho</option>
         <option value="Pessoal">Pessoal</option>
       </select>
+
+      <select
+        value={estado}
+        onChange={(e) => setEstado(e.target.value)}
+      >
+        <option value="Por Fazer">Por Fazer</option>
+        <option value="Em Progresso">Em Progresso</option>
+        <option value="Concluído">Concluído</option>
+      </select>
+
       <button type="submit">Adicionar Tarefa</button>
     </form>
   );
