@@ -4,6 +4,7 @@ import AddTaskForm from './components/AddTaskForm';
 
 function App() {
   const [tarefas, setTarefas] = useState([]);
+  const [mostrarFavoritas, setMostrarFavoritas] = useState(false);
 
   function adicionarTarefa(tarefa) {
     setTarefas([...tarefas, tarefa]);
@@ -28,12 +29,21 @@ function App() {
     setTarefas(tarefasAtualizadas);
   }
 
+  const tarefasExibidas = mostrarFavoritas
+    ? tarefas.filter((t) => t.favorita)
+    : tarefas;
+
   return (
     <div>
       <h1>Lista de Tarefas</h1>
+
+      <button onClick={() => setMostrarFavoritas(!mostrarFavoritas)}>
+        {mostrarFavoritas ? "Mostrar Todas" : "Mostrar Favoritas"}
+      </button>
+
       <AddTaskForm onAdd={adicionarTarefa} />
       <TaskList
-        tarefas={tarefas}
+        tarefas={tarefasExibidas}
         onEdit={editarTarefa}
         onRemove={removerTarefa}
         onToggleFavorita={alternarFavorita}
