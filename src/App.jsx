@@ -7,6 +7,7 @@ function App() {
   const [mostrarFavoritas, setMostrarFavoritas] = useState(false);
   const [filtroCategoria, setFiltroCategoria] = useState("Todas");
   const [filtroEstado, setFiltroEstado] = useState("Todos");
+  const [ordenarPorPrioridade, setOrdenarPorPrioridade] = useState(false); 
 
   function adicionarTarefa(tarefa) {
     setTarefas([...tarefas, tarefa]);
@@ -31,13 +32,20 @@ function App() {
     setTarefas(tarefasAtualizadas);
   }
 
-  
-  const tarefasFiltradas = tarefas.filter((t) => {
+  let tarefasFiltradas = tarefas.filter((t) => {
     const passaFavorita = mostrarFavoritas ? t.favorita : true;
     const passaCategoria = filtroCategoria === "Todas" || t.categoria === filtroCategoria;
     const passaEstado = filtroEstado === "Todos" || t.estado === filtroEstado;
     return passaFavorita && passaCategoria && passaEstado;
   });
+
+
+  if (ordenarPorPrioridade) {
+    const peso = { Alta: 3, Normal: 2, Baixa: 1 };
+    tarefasFiltradas = [...tarefasFiltradas].sort(
+      (a, b) => peso[b.prioridade] - peso[a.prioridade]
+    );
+  }
 
   return (
     <div>
@@ -45,6 +53,10 @@ function App() {
 
       <button onClick={() => setMostrarFavoritas(!mostrarFavoritas)}>
         {mostrarFavoritas ? "Mostrar Todas" : "Mostrar Favoritas"}
+      </button>
+
+      <button onClick={() => setOrdenarPorPrioridade(!ordenarPorPrioridade)}>
+        {ordenarPorPrioridade ? "Cancelar Ordenação" : "Ordenar por Prioridade"}
       </button>
 
       <div style={{ margin: '1rem 0' }}>

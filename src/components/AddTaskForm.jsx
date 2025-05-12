@@ -5,6 +5,7 @@ function AddTaskForm({ onAdd }) {
   const [descricao, setDescricao] = useState("");
   const [categoria, setCategoria] = useState("Estudo");
   const [estado, setEstado] = useState("Por Fazer");
+  const [prioridade, setPrioridade] = useState("Normal");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,7 +15,7 @@ function AddTaskForm({ onAdd }) {
       titulo,
       descricao,
       categoria,
-      prioridade: "Normal",
+      prioridade,
       estado,
       favorita: false
     };
@@ -26,6 +27,7 @@ function AddTaskForm({ onAdd }) {
     setDescricao("");
     setCategoria("Estudo");
     setEstado("Por Fazer");
+    setPrioridade("Normal");
   }
 
   return (
@@ -44,6 +46,7 @@ function AddTaskForm({ onAdd }) {
         onChange={(e) => setDescricao(e.target.value)}
         required
       />
+      
       <select
         value={categoria}
         onChange={(e) => setCategoria(e.target.value)}
@@ -60,6 +63,15 @@ function AddTaskForm({ onAdd }) {
         <option value="Por Fazer">Por Fazer</option>
         <option value="Em Progresso">Em Progresso</option>
         <option value="Concluído">Concluído</option>
+      </select>
+
+      <select
+        value={prioridade}
+        onChange={(e) => setPrioridade(e.target.value)}
+      >
+        <option value="Alta">Alta</option>
+        <option value="Normal">Normal</option>
+        <option value="Baixa">Baixa</option>
       </select>
 
       <button type="submit">Adicionar Tarefa</button>
