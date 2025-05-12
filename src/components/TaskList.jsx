@@ -19,7 +19,7 @@ function TaskList({ tarefas, onEdit, onRemove, onToggleFavorita }) {
   return (
     <div>
       {tarefas.map((tarefa) => (
-        <div key={tarefa.id}>
+        <div key={tarefa.id} className="task">
           {editandoId === tarefa.id ? (
             <>
               <input
@@ -49,7 +49,6 @@ function TaskList({ tarefas, onEdit, onRemove, onToggleFavorita }) {
               </button>
             </>
           )}
-          <hr />
         </div>
       ))}
     </div>

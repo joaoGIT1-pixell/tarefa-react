@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import TaskList from './components/TaskList';
 import AddTaskForm from './components/AddTaskForm';
+import './App.css';
 
 function App() {
   const [tarefas, setTarefas] = useState([]);
@@ -65,25 +66,27 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="app-container">
       <h1>Lista de Tarefas</h1>
 
-      <button onClick={() => setMostrarFavoritas(!mostrarFavoritas)}>
-        {mostrarFavoritas ? "Mostrar Todas" : "Mostrar Favoritas"}
-      </button>
+      <div className="controls">
+        <button onClick={() => setMostrarFavoritas(!mostrarFavoritas)}>
+          {mostrarFavoritas ? "Mostrar Todas" : "Mostrar Favoritas"}
+        </button>
 
-      <button onClick={() => setOrdenarPorPrioridade(!ordenarPorPrioridade)}>
-        {ordenarPorPrioridade ? "Cancelar Ordenação" : "Ordenar por Prioridade"}
-      </button>
+        <button onClick={() => setOrdenarPorPrioridade(!ordenarPorPrioridade)}>
+          {ordenarPorPrioridade ? "Cancelar Ordenação" : "Ordenar por Prioridade"}
+        </button>
 
-      <button onClick={sugerirTarefa}>🎲 Sugerir Tarefa</button>
+        <button onClick={sugerirTarefa}>🎲 Sugerir Tarefa</button>
 
-      <button onClick={limparTarefas}>🧹 Limpar Todas</button>
+        <button onClick={limparTarefas}>🧹 Limpar Todas</button>
+      </div>
 
       {sugestao && <p><strong>{sugestao}</strong></p>}
 
-      <div style={{ margin: '1rem 0' }}>
-        <label>Filtrar por categoria: </label>
+      <div className="filters">
+        <label>Categoria:</label>
         <select value={filtroCategoria} onChange={(e) => setFiltroCategoria(e.target.value)}>
           <option value="Todas">Todas</option>
           <option value="Estudo">Estudo</option>
@@ -91,7 +94,7 @@ function App() {
           <option value="Pessoal">Pessoal</option>
         </select>
 
-        <label style={{ marginLeft: '1rem' }}>Filtrar por estado: </label>
+        <label>Estado:</label>
         <select value={filtroEstado} onChange={(e) => setFiltroEstado(e.target.value)}>
           <option value="Todos">Todos</option>
           <option value="Por Fazer">Por Fazer</option>
