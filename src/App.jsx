@@ -8,7 +8,7 @@ function App() {
   const [filtroCategoria, setFiltroCategoria] = useState("Todas");
   const [filtroEstado, setFiltroEstado] = useState("Todos");
   const [ordenarPorPrioridade, setOrdenarPorPrioridade] = useState(false);
-  const [sugestao, setSugestao] = useState(null); // NOVO
+  const [sugestao, setSugestao] = useState(null); 
 
   function adicionarTarefa(tarefa) {
     setTarefas([...tarefas, tarefa]);
