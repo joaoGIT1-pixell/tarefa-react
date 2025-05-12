@@ -7,7 +7,8 @@ function App() {
   const [mostrarFavoritas, setMostrarFavoritas] = useState(false);
   const [filtroCategoria, setFiltroCategoria] = useState("Todas");
   const [filtroEstado, setFiltroEstado] = useState("Todos");
-  const [ordenarPorPrioridade, setOrdenarPorPrioridade] = useState(false); 
+  const [ordenarPorPrioridade, setOrdenarPorPrioridade] = useState(false);
+  const [sugestao, setSugestao] = useState(null); // NOVO
 
   function adicionarTarefa(tarefa) {
     setTarefas([...tarefas, tarefa]);
@@ -32,13 +33,22 @@ function App() {
     setTarefas(tarefasAtualizadas);
   }
 
+  function sugerirTarefa() {
+    if (tarefas.length === 0) {
+      setSugestao("Nenhuma tarefa disponível.");
+      return;
+    }
+
+    const aleatoria = tarefas[Math.floor(Math.random() * tarefas.length)];
+    setSugestao(`Sugerido: ${aleatoria.titulo} (${aleatoria.categoria})`);
+  }
+
   let tarefasFiltradas = tarefas.filter((t) => {
     const passaFavorita = mostrarFavoritas ? t.favorita : true;
     const passaCategoria = filtroCategoria === "Todas" || t.categoria === filtroCategoria;
     const passaEstado = filtroEstado === "Todos" || t.estado === filtroEstado;
     return passaFavorita && passaCategoria && passaEstado;
   });
-
 
   if (ordenarPorPrioridade) {
     const peso = { Alta: 3, Normal: 2, Baixa: 1 };
@@ -58,6 +68,10 @@ function App() {
       <button onClick={() => setOrdenarPorPrioridade(!ordenarPorPrioridade)}>
         {ordenarPorPrioridade ? "Cancelar Ordenação" : "Ordenar por Prioridade"}
       </button>
+
+      <button onClick={sugerirTarefa}>🎲 Sugerir Tarefa</button>
+
+      {sugestao && <p><strong>{sugestao}</strong></p>}
 
       <div style={{ margin: '1rem 0' }}>
         <label>Filtrar por categoria: </label>
