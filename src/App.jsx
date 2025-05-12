@@ -8,7 +8,7 @@ function App() {
   const [filtroCategoria, setFiltroCategoria] = useState("Todas");
   const [filtroEstado, setFiltroEstado] = useState("Todos");
   const [ordenarPorPrioridade, setOrdenarPorPrioridade] = useState(false);
-  const [sugestao, setSugestao] = useState(null); 
+  const [sugestao, setSugestao] = useState(null);
 
   function adicionarTarefa(tarefa) {
     setTarefas([...tarefas, tarefa]);
@@ -43,6 +43,13 @@ function App() {
     setSugestao(`Sugerido: ${aleatoria.titulo} (${aleatoria.categoria})`);
   }
 
+  function limparTarefas() {
+    if (window.confirm("Tem certeza que deseja apagar todas as tarefas?")) {
+      setTarefas([]);
+      setSugestao(null);
+    }
+  }
+
   let tarefasFiltradas = tarefas.filter((t) => {
     const passaFavorita = mostrarFavoritas ? t.favorita : true;
     const passaCategoria = filtroCategoria === "Todas" || t.categoria === filtroCategoria;
@@ -70,6 +77,8 @@ function App() {
       </button>
 
       <button onClick={sugerirTarefa}>🎲 Sugerir Tarefa</button>
+
+      <button onClick={limparTarefas}>🧹 Limpar Todas</button>
 
       {sugestao && <p><strong>{sugestao}</strong></p>}
 
